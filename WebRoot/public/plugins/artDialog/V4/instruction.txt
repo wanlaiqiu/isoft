@@ -1,0 +1,18 @@
+
+		<script type="text/javascript">
+			(function(config) {
+				config['lock'] = true;//锁屏
+				config['fixed'] = true;//静止定位
+				config['opacity'] = 0.2;
+			})(art.dialog.defaults);
+		</script>
+		<style>
+		/*定制自己弹出框的CSS样式。aui_outer*/
+		.aui_outer {font-family:"微软雅黑";font-size: 14px;}
+		/*内容*/
+		.aui_content {font-family:"微软雅黑";font-size: 12px;}
+		/*tips类弹窗*/
+		.aui_content div {font-family:"微软雅黑";font-size: 12px;}
+		/*标题*/
+		.aui_title {font-family:"微软雅黑";font-size: 12px;}
+		</style>
