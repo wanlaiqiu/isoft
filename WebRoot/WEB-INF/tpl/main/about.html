@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+	<!--[if IE 9]>
+    <html lang="en" class="ie9">
+    <![endif]-->
+    <!--[if !IE]><!-->
+    <html lang="en">
+    <!--<![endif]-->
+    <head>
+		<#include "/common/meta.html">
+		<#include "/common/resource.html">
+		<style type="text/css">
+			.section { padding: 184px 0 0 0; }
+			.header { background-color: rgba(0, 0, 0, 0.55);}
+			.col-md-6 img{-webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px;}
+		</style>
+    </head>
+    
+    <body class="no-trans">
+        <!-- scrollToTop -->
+		<div class="scrollToTop"><i class="icon-up-open-big"></i></div>
+
+		<!-- header start -->
+		<#include "/common/header.html">
+		<!-- header end -->
+
+		<!-- section start -->
+		<div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<h1 id="about" class="title text-center">关于 <span>Unixapp</span></h1>
+						<p class="lead text-center"><span style="color:#339BEB;">Unixapp</span>现在只是一个<span style="color: #FF7F00;">雏形</span>，努力建设ｉｎｇ......</p>
+						<div class="space"></div>
+						<div class="row">
+							<div class="col-md-6">
+								<img src="${site.url}/public/images/frount/Capri.jpg" alt="卡普里岛">
+								<div class="space" style="text-align: center;">卡普里岛</div>
+							</div>
+							<div class="col-md-6">
+								<p><span style="color: pink;">（内容无关）</span>Redis 集群是一个分布式(distributed)
+									、容错(fault-tolerant)的 Redis 实现,集群可以使用的功能是普通
+									单机 Redis 所能使用的功能的一个子集(subset)。
+								</p>
+								<p>Redis 集群中不存在中心(central)节点或者代理(proxy)节点,集群的其中一个主要设计目标是达到线性
+									可扩展性(linear scalability)。</p>
+								<p>Redis 集群为了保证一致性(consistency)而牺牲了一部分容错性:系统会在保证对网络断线(net split)和
+									节点失效(node failure)具有有限(limited)抵抗力的前提下,尽可能地保持数据的一致性。
+								</p>
+								<ul class="list-unstyled">
+									<li><i class="fa fa-caret-right pr-10 text-colored"></i> Redis 集群实现的功能子集</li>
+									<li><i class="fa fa-caret-right pr-10 text-colored"></i> Redis 集群协议中的客户端和服务器</li>
+									<li><i class="fa fa-caret-right pr-10 text-colored"></i> 键分布模型</li>
+									<li><i class="fa fa-caret-right pr-10 text-colored"></i> 集群节点属性</li>
+									<li><i class="fa fa-caret-right pr-10 text-colored"></i> 节点握手(已实现)</li>
+								</ul>
+							</div>
+						</div>
+						<div class="space"></div>
+						<h2>Redis 提供了多种不同级别的持久化方式:</h2>
+						<div class="row">
+							<div class="col-md-6">
+								<p>• RDB 持久化可以在指定的时间间隔内生成数据集的时间点快照(point-in-time snapshot)。</p>
+								<p>• AOF 持久化记录服务器执行的所有写操作命令,并在服务器启动时,通过重新执行这些命令来还原数
+									据集。AOF 文件中的命令全部以 Redis 协议的格式来保存,新命令会被追加到文件的末尾。Redis 还
+									可以在后台对 AOF 文件进行重写(rewrite)
+									,使得 AOF 文件的体积不会超出保存数据集状态所需的
+									实际大小。</p>
+								<p>• Redis 还可以同时使用 AOF 持久化和 RDB 持久化。在这种情况下,当 Redis 重启时,它会优先使用
+									AOF 文件来还原数据集,因为 AOF 文件保存的数据集通常比 RDB 文件所保存的数据集更完整。
+								</p>
+							</div>
+							<div class="col-md-6">
+								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+									<div class="panel panel-default">
+										<div class="panel-heading" role="tab" id="headingOne">
+											<h4 class="panel-title">
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+													RDB 的优点
+												</a>
+											</h4>
+										</div>
+										<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+											<div class="panel-body">
+												• RDB 非常适用于灾难恢复(disaster recovery):它只有一个文件,并且内容都非常紧凑,可以(在加
+													密后)将它传送到别的数据中心,或者亚马逊 S3 中。<br/>
+												• RDB 可以最大化 Redis 的性能:父进程在保存 RDB 文件时唯一要做的就是 fork 出一个子进程,然
+												后这个子进程就会处理接下来的所有保存工作,父进程无须执行任何磁盘 I/O 操作。
+											</div>
+										</div>
+									</div>
+									<div class="panel panel-default">
+										<div class="panel-heading" role="tab" id="headingTwo">
+											<h4 class="panel-title">
+												<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+													AOF 的优点
+												</a>
+											</h4>
+										</div>
+										<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+											<div class="panel-body">
+												• 使用 AOF 持久化会让 Redis 变得非常耐久(much more durable):你可以设置不同的 fsync 策略,
+													比如无 fsync ,每秒钟一次 fsync ,或者每次执行写入命令时 fsync 。AOF 的默认策略为每秒钟
+													fsync 一次,在这种配置下,Redis 仍然可以保持良好的性能,并且就算发生故障停机,也最多只会丢
+													失一秒钟的数据(fsync 会在后台线程执行,所以主线程可以继续努力地处理命令请求)。<br/>
+												• Redis 可以在 AOF 文件体积变得过大时,自动地在后台对 AOF 进行重写:重写后的新 AOF 文件包
+													含了恢复当前数据集所需的最小命令集合。整个重写操作是绝对安全的,因为 Redis 在创建新 AOF
+													文件的过程中,会继续将命令追加到现有的 AOF 文件里面,即使重写过程中发生停机,现有的 AOF
+													文件也不会丢失。而一旦新 AOF 文件创建完毕,Redis 就会从旧 AOF 文件切换到新 AOF 文件,并
+													开始对新 AOF 文件进行追加操作。
+											</div>
+										</div>
+									</div>
+									<div class="panel panel-default">
+										<div class="panel-heading" role="tab" id="headingThree">
+											<h4 class="panel-title">
+												<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+													RDB 和 AOF ,我应该用哪一个?
+												</a>
+											</h4>
+										</div>
+										<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+											<div class="panel-body">
+												一般来说,如果想达到足以媲美 PostgreSQL 的数据安全性,你应该同时使用两种持久化功能。<br/>
+												如果你非常关心你的数据,但仍然可以承受数分钟以内的数据丢失,那么你可以只使用 RDB 持久化。<br/>
+												有很多用户都只使用 AOF 持久化,但我们并不推荐这种方式:因为定时生成 RDB 快照(snapshot)非常
+												便于进行数据库备份,并且 RDB 恢复数据集的速度也要比 AOF 恢复的速度要快,除此之外,使用 RDB
+												还可以避免之前提到的 AOF 程序的 bug 。
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- footer start -->
+		<#include "/common/footer.html">
+		<!-- footer end -->
+		<#include "/common/defer.html">
+    </body>
+    
+    </html>

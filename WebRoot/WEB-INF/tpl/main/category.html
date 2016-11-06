@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+	<!--[if IE 9]>
+    <html lang="en" class="ie9">
+    <![endif]-->
+    <!--[if !IE]><!-->
+    <html lang="en">
+    <!--<![endif]-->
+    <head>
+		<#include "/common/meta.html">
+		<#include "/common/resource.html">
+		<style type="text/css">
+			/* css only for this page */
+			.section .container {margin-top: 64px;}
+			.header { background-color: rgba(0, 0, 0, 0.55);}
+			.row .col-md-6 {text-align:justify;}
+			.row .col-md-6:first-child {text-indent: 2em; width: 100%; word-wrap: break-word; word-break: break-all; padding:10px 10%;}
+			.syntaxhighlighter .line{text-indent: 0;}
+		</style>
+    </head>
+    
+    <body class="no-trans">
+        <!-- scrollToTop -->
+		<div class="scrollToTop"><i class="icon-up-open-big"></i></div>
+
+		<!-- header start -->
+		<#include "/common/header.html">
+		<!-- header end -->
+
+		<!-- section start -->
+		<div class="section">
+			<div class="container">
+				<h1 class="text-center title" id="portfolio">目录 分类</h1>
+				<div class="separator"></div>
+				<p class="lead text-center">一些随笔杂谈，备忘......</p>
+				<br>			
+				<div class="row object-non-visible" data-animation-effect="fadeIn">
+					<div class="col-md-12">
+						<!-- isotope filters start -->
+						<div class="filters text-center">
+							<ul class="nav nav-pills">
+								<li class="active"><a href="#" data-filter="*">All</a></li>
+								<li><a href="#" data-filter=".java">Java</a></li>
+								<li><a href="#" data-filter=".javascript">Javascript</a></li>
+								<li><a href="#" data-filter=".mysql">MySQL</a></li>
+								<li><a href="#" data-filter=".oracle">Oracle</a></li>
+								<li><a href="#" data-filter=".linux">Linux</a></li>
+								<li><a href="#" data-filter=".python">Python</a></li>
+							</ul>
+						</div>
+						<!-- isotope filters end -->
+
+						<!-- portfolio items start -->
+						<div class="isotope-container row grid-space-20">
+						<#if contents?? && contents?size gt 0>
+							<#list contents as content>
+								<#assign itera = 0>
+								<div class="col-sm-6 col-md-3 isotope-item ${(content.article.name)!?lower_case}">
+									<div class="image-box">
+										<div class="overlay-container">
+											<img src="${site.url}/public/images/frount/portfolio-${content_index + 1}.jpg" alt="${content.article.name!}">
+											<a class="overlay" data-toggle="modal" data-target="#project-${content_index + 1}" href="/category/load/data?KEYS=${(content.index)!}">
+												<i class="fa fa-search-plus"></i>
+												<span>${content.shortTitle}</span>
+											</a>
+										</div>
+										<a class="btn btn-default btn-block" data-toggle="modal" data-target="#project-${content_index + 1}" href="/category/load/data?KEYS=${content.index}">${content.title}</a>
+									</div>
+									<!-- Modal -->
+									<div class="modal fade" id="project-${content_index + 1}" tabindex="-1" role="dialog" aria-labelledby="project-${content_index + 1}-label" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+													<h4 class="modal-title" id="project-${content_index + 1}-label">详情展示[<font style="font-size:13px;">按<span style="color:red;">[ESC]</span>键或"<span style="color:red;">单击非弹窗处</span>"可关闭弹窗</font>]</h4>
+												</div>
+												<div class="modal-body">
+													<h3>${content.title}</h3>
+													<h3 class="_author" id="author${content.index}"></h3>
+													<div class="row">
+														<div class="col-md-6">
+														</div>
+														<#-- 
+														<div class="col-md-6">
+															<img src="${site.url}/public/images/frount/portfolio-1.jpg" alt="">
+														</div> 
+														-->
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- Modal end -->
+									
+								</div>
+							</#list>
+							<#else>
+							暂时没有内容
+						</#if>
+						</div>
+						<!-- portfolio items end -->
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- footer start -->
+		<#include "/common/footer.html">
+		<!-- footer end -->
+		<#include "/common/defer.html">
+		<style type="text/css">
+			/* local css only for this page */
+			.modal-body #nprogress .bar{background: #DC143C; height: 2px;}
+			.modal-body #nprogress .spinner-icon{border-top-color: #29d; border-left-color: #29d;}
+			.modal-body #nprogress .peg {box-shadow: 0 0 10px #FF0000, 0 0 10px #FF0000;}
+			.modal-body ._author {float:right;font-size:13px;margin-right:5%;}
+			.modal-body ._author .red{color: #FF0000;font-size:15px;}
+			.modal-body ._author .orange{color: #FF8000;}
+			.modal-body ._author .green{color: #3CB371;}
+			.isotope-item .btn-default{color: #FF2D2D;}
+			.nav-pills > li > a {font-weight: 600;}
+			/* solve for syntaxhighlighter with bootstrap css conflict 2015-07-19 */
+			.syntaxhighlighter td.code .container::before, .syntaxhighlighter td.code .container::after {display: none;}
+		</style>
+		<script type="text/javascript">
+			$(function(){
+				<#-- 
+				$('.modal-body .row .col-md-6:first').ajaxSend(function(){
+					alert();
+				});
+				-->
+				$('.modal').on('hidden.bs.modal', function () {
+					 $(this).removeData();
+				})
+				$.ajaxSetup({
+					beforeSend: function(jqXHR, options){
+						var visiable,
+							o = setInterval(function(){
+								visiable = $('.modal:visible');
+								if(visiable.length){
+									var parent = '#' + visiable.attr('id') + ' .modal-body';
+									var config = {
+											minimum: 		0.4,
+											ease:			'ease',
+											speed:			500,
+											trickleRate:	0.02,
+											trickleSpeed:	60,
+											parent:			parent
+										};
+									(function(ie,version){
+										if(ie){
+											if(parseInt(version) < 10){
+												config.showSpinner = false;
+											}
+										}
+									})($.browser.msie,$.browser.version);
+									NProgress.configure(config);
+									NProgress.start();
+									clearInterval(o);
+								}
+						},30);
+					},
+					complete: function(){
+						SyntaxHighlighter.all();
+						SyntaxHighlighter.highlight();
+						NProgress.done();
+						setTimeout(NProgress.done,2200);
+					}
+				});
+			});
+		</script>
+		<link href="${site.url}/public/plugins/syntaxhighlighter/css/shCore.css" rel="stylesheet" />
+		<link href="${site.url}/public/plugins/syntaxhighlighter/css/shCoreDefault.css" rel="stylesheet" />
+		<script type="text/javascript" src="${site.url}/public/plugins/syntaxhighlighter/scripts/shCore.js"></script>
+		<script type="text/javascript" src="${site.url}/public/plugins/syntaxhighlighter/scripts/shAutoloader.js"></script>
+		<script type="text/javascript" src="${site.url}/public/plugins/syntaxhighlighter/scripts/shBrushBash.js"></script>
+		<script type="text/javascript" src="${site.url}/public/plugins/syntaxhighlighter/scripts/shBrushJava.js"></script>
+		<script type="text/javascript" src="${site.url}/public/plugins/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+		<script type="text/javascript" src="${site.url}/public/plugins/syntaxhighlighter/scripts/shBrushPython.js"></script>
+		<script type="text/javascript" src="${site.url}/public/plugins/syntaxhighlighter/scripts/shBrushSql.js"></script>
+		<script type="text/javascript">
+			SyntaxHighlighter.defaults['toolbar'] = false;
+			SyntaxHighlighter.defaults['highlight'] = 63;
+		</script>
+    </body>
+</html>

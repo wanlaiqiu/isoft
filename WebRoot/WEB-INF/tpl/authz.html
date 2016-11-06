@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+	<!--[if IE 9]>
+    <html lang="en" class="ie9">
+    <![endif]-->
+    <!--[if !IE]><!-->
+    <html lang="en">
+    <!--<![endif]-->
+    <head>
+		<#include "/common/meta.html">
+		<#include "/common/resource.html">
+    </head>
+    
+    <body class="no-trans">
+        <!-- scrollToTop -->
+		<!-- ================ -->
+		<div class="scrollToTop"><i class="icon-up-open-big"></i></div>
+
+		<!-- header start -->
+		<!-- ================ --> 
+		<#include "/common/header.html">
+		<!-- header end -->
+
+		<!-- banner start -->
+		<!-- ================ -->
+		<div id="banner" class="banner">
+			<div class="banner-image"></div>
+			<div class="banner-caption">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 object-non-visible" data-animation-effect="fadeIn">
+							<h1 class="text-center">I am <span>Striving</span></h1>
+							<p class="lead text-center">
+								努力做的更好......Better Than Better
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+		<!-- .subfooter start -->
+		<#include "/common/footer.html">
+		<!-- .subfooter end -->
+
+		<#include "/common/defer.html">
+		<style type="text/css">
+			.text-center {
+				-webkit-transform: rotateX(35deg);
+				   -moz-transform: rotateX(35deg);
+						transform: rotateX(35deg);
+			}
+			.text-center span{
+				-webkit-animation: span-css 3000ms linear 2;
+				   -moz-animation: span-css 3000ms linear 2;
+						animation: span-css 3000ms linear 2;
+			}
+			@-webkit-keyframes span-css{
+				0%   	{ -webkit-transform: rotate(0deg); }
+  				100% 	{ -webkit-transform: rotate(360deg); }
+			}
+			@-moz-keyframes span-css{
+				0%   	{ -moz-transform: rotate(0deg); }
+  				100% 	{ -moz-transform: rotate(360deg); }
+			}
+			@keyframes span-css{
+				0%   	{ transform: rotate(0deg); }
+  				100% 	{ transform: rotate(360deg); }
+			}
+		</style>
+    </body>
+    
+    </html>

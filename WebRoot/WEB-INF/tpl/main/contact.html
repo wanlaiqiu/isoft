@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+	<!--[if IE 9]>
+    <html lang="en" class="ie9">
+    <![endif]-->
+    <!--[if !IE]><!-->
+    <html lang="en">
+    <!--<![endif]-->
+    <head>
+		<#include "/common/meta.html">
+		<#include "/common/resource.html">
+    </head>
+    
+    <body class="no-trans">
+        <!-- scrollToTop -->
+		<div class="scrollToTop"><i class="icon-up-open-big"></i></div>
+
+		<!-- header start -->
+		<#include "/common/header.html">
+		<!-- header end -->
+
+		<!-- section start -->
+		<footer id="footer">
+
+			<!-- .footer start -->
+			<div class="footer section">
+				<div class="container">
+					<h1 class="title text-center" id="contact">Contact Me</h1>
+					<div class="space"></div>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="footer-content">
+								<p class="large">如果您对网站有一些疑问，可以与我联系，我很乐意接受一些意见！您可以给我发送Email,或者站内信，
+									我会在看见后的第一时间为您解答！
+								</p>
+								<ul class="list-icons">
+									<li><i class="fa fa-map-marker pr-10"></i> Peking.CHN ， 100000</li>
+									<li><i class="fa fa-phone pr-10"></i> +86 010-xxxxxxxx </li>
+									<li><i class="fa fa-fax pr-10"></i> +86 152xxxxxxxx </li>
+									<li><i class="fa fa-envelope-o pr-10"></i> 暂无，建设ing......</li>
+								</ul>
+								<ul class="social-links">
+									<li class="facebook"><a target="_blank" href="https://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
+									<li class="twitter"><a target="_blank" href="https://twitter.com"><i class="fa fa-twitter"></i></a></li>
+									<li class="googleplus"><a target="_blank" href="http://plus.google.com"><i class="fa fa-google-plus"></i></a></li>
+									<li class="skype"><a target="_blank" href="http://www.skype.com"><i class="fa fa-skype"></i></a></li>
+									<li class="linkedin"><a target="_blank" href="http://www.linkedin.com"><i class="fa fa-linkedin"></i></a></li>
+									<li class="youtube"><a target="_blank" href="http://www.youtube.com"><i class="fa fa-youtube"></i></a></li>
+									<li class="flickr"><a target="_blank" href="http://www.flickr.com"><i class="fa fa-flickr"></i></a></li>
+									<li class="pinterest"><a target="_blank" href="http://www.pinterest.com"><i class="fa fa-pinterest"></i></a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="footer-content">
+								<form role="form" id="footer-form" class="Validform" action="/contact/sender" method="post">
+									<div class="form-group has-feedback">
+										<label class="sr-only" for="name2">Name</label>
+										<input type="text" class="form-control" id="visitor" placeholder="Your Name" name="name" required>
+										<i class="fa fa-user form-control-feedback"></i>
+									</div>
+									<div class="form-group has-feedback">
+										<label class="sr-only" for="email2">Email address</label>
+										<input type="email" class="form-control" id="email" placeholder="Enter Your email(effective)" name="email" required>
+										<i class="fa fa-envelope form-control-feedback"></i>
+									</div>
+									<div class="form-group has-feedback">
+										<label class="sr-only" for="message2">Message</label>
+										<textarea class="form-control" rows="8" id="message" placeholder="Message" name="message" required></textarea>
+										<i class="fa fa-pencil form-control-feedback"></i>
+									</div>
+									<input type="button" value="Send" class="btn btn-default"><span class="Validform_checktip"></span>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- footer start -->
+		<#include "/common/footer.html">
+		<!-- footer end -->
+		<#include "/common/defer.html">
+		<style type="text/css">
+			.section { padding-top: 184px; }
+			.header { background-color: rgba(0, 0, 0, 0.55); }
+			.Validform span.Validform_checktip{ margin-left: 50px;font-size: 14px;}
+			.Validform .Validform_right{ display: none;}
+		</style>
+		<link href="${site.url}/public/plugins/validform/style.css" rel="stylesheet" />
+		<script type="text/javascript" src="${site.url}/public/plugins/validform/Validform.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				var Visitor = $('.Validform').Validform({
+					btnSubmit : '.btn-default',
+					tiptype : function(msg, o , cssctl){
+						var objtip = $('.Validform_checktip');
+						cssctl(objtip, o.type);
+						objtip.text(msg);
+					},
+					postonce : true,
+					ajaxPost : true,
+					beforeSubmit : function(){
+						$('.Validform_checktip').removeClass('Validform_right');
+					},
+					callback : function(data){
+						if(data && data.status == 'y'){
+							$('.Validform_checktip').css('display','inline-block');
+							$('#visitor').val('');
+							$('#email').val('');
+							$('#message').val('');
+						}
+					}
+					
+				});
+				Visitor.addRule([
+					{
+						ele : '#visitor',
+						datatype : /^[a-zA-Z0-9_\-\.\·\u4E00-\u9FA5\uf900-\ufa2d]{2,16}$/,
+						nullmsg : '\u8bf7\u586b\u5199\u60a8\u7684\u59d3\u540d',
+						errormsg : '\u59d3\u540d\u81f3\u5c11\u4e24\u4e2a\u5b57\u7b26\uff0c\u4e0d\u80fd\u5e26\u7279\u6b8a\u7b26\u53f7'
+					},
+					{
+						ele : '#email',
+						datatype : 'e',
+						nullmsg : '\u8bf7\u586b\u5199\u60a8\u7684\u7535\u5b50\u90ae\u4ef6\uff0c\u4ee5\u4fbf\u4e0e\u60a8\u8054\u7cfb',
+						errormsg : '\u8bf7\u51c6\u786e\u586b\u5199\u7535\u5b50\u90ae\u4ef6\uff0c\u6ce8\u610f\u683c\u5f0f'
+					},
+					{
+						ele : '#message',
+						datatype : '*10-100',
+						nullmsg : '\u8bf7\u586b\u5199\u7559\u8a00',
+						errormsg : '\u7559\u8a00\u0031\u0030\uff5e\u0031\u0030\u0030\u5b57\u7b26'
+					}
+				]);
+			});
+		</script>
+    </body>
+    
+    </html>

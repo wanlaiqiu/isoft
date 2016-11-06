@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<web-app version="3.1" 
+			xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+	        http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+	<display-name></display-name>
+	
+ 	<listener>
+ 		<listener-class>
+ 			org.springframework.web.context.ContextLoaderListener
+ 		</listener-class>
+ 	</listener>
+ 	<context-param>
+ 		<param-name>contextConfigLocation</param-name>  
+        <param-value>classpath:resource/applicationContext.xml</param-value>
+ 	</context-param>
+ 
+ 	<!-- 配置SpringMVC DispatcherServlet -->
+ 	<servlet>
+ 		<servlet-name>SpringMVCServlet</servlet-name>
+ 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+ 		<init-param>
+ 			<param-name>contextConfigLocation</param-name>
+ 			<param-value>classpath:resource/mvc-spring.xml</param-value>
+ 		</init-param>
+ 		<load-on-startup>1</load-on-startup>
+ 	</servlet>
+ 	<servlet-mapping>
+ 		<servlet-name>SpringMVCServlet</servlet-name>
+ 		<url-pattern>/home</url-pattern>
+ 	</servlet-mapping>
+ 	<servlet-mapping>
+ 		<servlet-name>SpringMVCServlet</servlet-name>
+ 		<url-pattern>/</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	<filter>
+ 		<filter-name>UTF8Encoding</filter-name>
+ 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+ 		<init-param>
+ 			<param-name>encoding</param-name>
+ 			<param-value>UTF-8</param-value>
+ 		</init-param>
+ 		<init-param>
+ 			<param-name>forceEncoding</param-name>
+ 			<param-value>true</param-value>
+ 		</init-param>
+ 	</filter>
+ 	<filter-mapping>
+ 		<filter-name>UTF8Encoding</filter-name>
+ 		<url-pattern>/*</url-pattern>
+ 	</filter-mapping>
+ 	
+ 	<filter>
+ 		<filter-name>openHibernaetSession</filter-name>
+ 		<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+ 	</filter>
+ 	<filter-mapping>
+ 		<filter-name>openHibernaetSession</filter-name>
+ 		<url-pattern>/home/*</url-pattern>
+ 	</filter-mapping>
+ 	<filter-mapping>
+ 		<filter-name>openHibernaetSession</filter-name>
+ 		<url-pattern>/about/*</url-pattern>
+ 	</filter-mapping>
+ 	<filter-mapping>
+ 		<filter-name>openHibernaetSession</filter-name>
+ 		<url-pattern>/article/*</url-pattern>
+ 	</filter-mapping>
+ 	<filter-mapping>
+ 		<filter-name>openHibernaetSession</filter-name>
+ 		<url-pattern>/category/*</url-pattern>
+ 	</filter-mapping>
+ 	<filter-mapping>
+ 		<filter-name>openHibernaetSession</filter-name>
+ 		<url-pattern>/function/*</url-pattern>
+ 	</filter-mapping>
+ 	<filter-mapping>
+ 		<filter-name>openHibernaetSession</filter-name>
+ 		<url-pattern>/contact/*</url-pattern>
+ 	</filter-mapping>
+ 
+ 
+    <servlet>
+        <servlet-name>default</servlet-name>
+        <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>listings</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+
+   <!--  <servlet>
+        <servlet-name>jsp</servlet-name>
+        <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+        <init-param>
+            <param-name>fork</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>xpoweredBy</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>3</load-on-startup>
+    </servlet> -->
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <welcome-file-list>
+	    <welcome-file>home</welcome-file>
+    </welcome-file-list>
+    
+    <error-page>
+    	<error-code>403</error-code>
+    	<location>/pages/http/403.htm</location>
+    </error-page>
+    <error-page>
+    	<error-code>404</error-code>
+    	<location>/pages/http/404.htm</location>
+    </error-page>
+    <error-page>
+    	<error-code>405</error-code>
+    	<location>/pages/http/405.htm</location>
+    </error-page>
+    <error-page>
+    	<error-code>500</error-code>
+    	<location>/pages/http/500.htm</location>
+    </error-page>
+
+</web-app>

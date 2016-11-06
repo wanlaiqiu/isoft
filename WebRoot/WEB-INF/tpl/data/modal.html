@@ -1,0 +1,13 @@
+	
+		<#if data??>
+			${data['content']}
+			<#else>
+			<pre>没有相关内容</pre>
+		</#if>
+		<script type="text/javascript">
+		<!--
+			(function(){
+				$('#author${data['index']}').html('<span>BY <span class="green">${data['author']}</span> [<span class="orange">${data['time']}</span>][<span class="red">${data['count']}</span>次点击]</span>');
+			})();
+		//-->
+		</script>
