@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+				http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	
+	<!-- 启用注解 -->
+	<mvc:annotation-driven/>
+	
+	<!-- Spring注解扫描-->
+	<context:component-scan base-package="com.van.products" />
+	
+	<!-- 静态资源访问过滤 -->
+	<mvc:resources location="/public/" mapping="/public/**" />
+	<mvc:resources location="/http/" mapping="/http/*" />
+	
+	<!-- 基于注解的事务，当注释中发现@Transactional时，使用id为“transactionManager”的事务管理器  -->
+	<!-- 如果没有设置transaction-manager的值，则spring以缺省默认的事务管理器来处理事务，默认事务管理器为第一个加载的事务管理器 -->
+	<!-- transactionManager配置见hibernate-spring.xml -->
+	<!-- 此配置必须放在mvc文件中，放在其他文件之中，事务不会自动提交 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
+    <mvc:default-servlet-handler />
+    
+	<!-- freemarker视图解析器 必须放在默认解析器之前
+		 先拦截freemarker页面，未找到时转向寻找jsp页面
+	-->
+	<bean id="freemarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="cache" value="false"/>
+		<property name="prefix" value=""/>
+		<property name="suffix" value=".html"/>
+		<property name="contentType" value="text/html;charset=utf-8" />
+		<property name="exposeRequestAttributes" value="true"/>
+		<property name="exposeSessionAttributes" value="true"/>
+		<property name="exposeSpringMacroHelpers" value="true"/>
+	</bean>
+	
+	<!-- 默认视图解析器，针对jsp -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/pages/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+    
+	<!-- 文件上传解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="maxUploadSize" value="10485760000" />
+		<property name="maxInMemorySize" value="40960" />
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJacksonHttpMessageConverter"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/plain;charset=UTF-8</value> 
+				<value>text/html;charset=UTF-8</value> 
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 拦截器 -->
+	<mvc:interceptors>
+			<!-- 全站默认拦截器 -->
+			<bean class="com.van.products.interceptor.SiteDefaultInterceptor" />
+	</mvc:interceptors>
+</beans>

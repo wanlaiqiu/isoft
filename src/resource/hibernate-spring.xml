@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- hibernate配置相关 -->
+	
+	<context:property-placeholder location="classpath:resource/jdbc-mysql.properties"/>
+	
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${datasource.driverClass}" />
+		<property name="jdbcUrl" value="${datasource.url}" />
+		<property name="user" value="${datasource.username}" />
+		<property name="password" value="${datasource.password}" />
+		<property name="acquireIncrement" value="${c3p0.acquireIncrement}" />
+		<property name="initialPoolSize" value="${c3p0.initialPoolSize}" />
+		<property name="minPoolSize" value="${c3p0.minPoolSize}" />
+		<property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
+		<property name="maxIdleTime" value="${c3p0.maxIdleTime}" />
+		<property name="maxStatements" value="${c3p0.maxStatements}" />
+		<property name="maxIdleTimeExcessConnections" value="${c3p0.maxIdleTimeExcessConnections}" />
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=${hibernate.dialect}
+				hibernate.connection.release_mode=${hibernate.release_mode}
+				hibernate.connection.autocommit=${hibernate.autocommit}
+				hibernate.show_sql=${hibernate.show_sql}
+				hibernate.format_sql=${hibernate.format_sql}
+				hibernate.cache.use_query_cache=true
+				hibernate.cache.use_second_level_cache=true
+				hibernate.cache.region.factory_class=org.hibernate.cache.ehcache.EhCacheRegionFactory
+				hibernate.jdbc.fetch_size=50
+				hibernate.jdbc.batch_size=30
+				hibernate.temp.use_jdbc_metadata_defaults=false
+			</value>
+				<!-- hibernate.current_session_context_class=thread -->
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>com.van.products.entity</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<!-- 配置事务异常封装 -->
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		  class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	
+	
+	
+</beans>

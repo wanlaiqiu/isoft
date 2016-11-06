@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ehcache name="ehcache-van">
+
+	<defaultCache 
+		maxElementsInMemory="10000" 
+		eternal="false"
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600" 
+		overflowToDisk="false"
+		diskPersistent="false" 
+		memoryStoreEvictionPolicy="LRU">
+		<!-- <terracotta concurrency="8"/> -->
+	</defaultCache>
+
+	<cache name="defaultCacheConfiguration" 
+			maxElementsInMemory="10000"
+			eternal="false" 
+			timeToIdleSeconds="300" 
+			timeToLiveSeconds="600"
+			overflowToDisk="false" 
+			diskPersistent="false"
+			memoryStoreEvictionPolicy="LRU">
+		<!-- <terracotta concurrency="8"/> -->
+	</cache>
+
+
+	<!-- <terracottaConfig url="192.168.12.61:9510"/> <terracottaConfig url="192.168.12.102:9510"/> -->
+</ehcache>
