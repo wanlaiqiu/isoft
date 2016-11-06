@@ -1,0 +1,5 @@
+
+jQuery关键字高亮插件
+页面加入css
+
+.highlight {font: normal bolder 15px '黑体';color:#FF0000;}
