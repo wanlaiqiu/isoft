@@ -1,0 +1,5 @@
+
+jQuery 2.x has the same API as jQuery 1.x
+
+But 2.x does not support Internet Explorer 6, 7, 8, or 9 
+
